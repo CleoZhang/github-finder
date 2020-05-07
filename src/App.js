@@ -1,13 +1,17 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import NavBar from './layout/NavBar';
+import Users from './components/users/Users';
 import './App.css';
 
 class App extends Component {
   render() {
     return (
-      <nav className='navBar bg-primary'>
+      <div className='App'>
         <NavBar />
-      </nav>
+        <div className='container'>
+          <Users />
+        </div>
+      </div>
     );
   }
 }

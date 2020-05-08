@@ -11,6 +11,7 @@ const Navbar = ({ icon, title }) => {
       </h1>
       <ul>
         <li>
+          {/* Note: why not use a tag? */}
           <Link to='/'>Home</Link>
         </li>
         <li>

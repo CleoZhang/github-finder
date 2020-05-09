@@ -1,15 +1,20 @@
 import React, { Component, Fragment } from 'react';
-import propTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 import Spinner from '../layout/Spinner';
+import Repos from '../repos/Repos';
 
 export class User extends Component {
   componentDidMount() {
     this.props.getUser(this.props.match.params.login);
+    this.props.getUserRepos(this.props.match.params.login);
   }
 
   render() {
+    const { repos } = this.props;
+    console.log('User.js: ', repos);
+
     if (this.props.user != null) {
       const {
         name,
@@ -96,6 +101,7 @@ export class User extends Component {
             </div>
             <div className='badge badge-dark'>Public Gists: {public_gists}</div>
           </div>
+          <Repos repos={repos} />
         </Fragment>
       );
     }
@@ -105,7 +111,8 @@ export class User extends Component {
 }
 
 User.propTypes = {
-  getUser: propTypes.func.isRequired,
+  getUser: PropTypes.func.isRequired,
+  getUserRepos: PropTypes.func.isRequired,
 };
 
 export default User;

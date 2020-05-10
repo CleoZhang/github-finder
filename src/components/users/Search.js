@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 const Search = ({ searchUsers, showClear, clearUsers, setAlert }) => {
+  // 1. useState(): refactor the state within the class-based component
   const [text, setText] = useState('');
 
   const onChange = e => {

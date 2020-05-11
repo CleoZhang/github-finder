@@ -1,11 +1,14 @@
-import React, { Fragment, useEffect } from 'react';
-import PropTypes from 'prop-types';
+import React, { Fragment, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 
 import Spinner from '../layout/Spinner';
 import Repos from '../repos/Repos';
+import GithubContext from '../../context/github/githubContext';
 
-const User = ({ repos, user, getUser, getUserRepos, match }) => {
+const User = ({ match }) => {
+  const githubContext = useContext(GithubContext);
+  const { getUser, user, getUserRepos } = githubContext;
+
   // 2. useEffect(): Refactor life-cycle methods like componentDidMount()
   useEffect(() => {
     getUser(match.params.login);
@@ -98,17 +101,12 @@ const User = ({ repos, user, getUser, getUserRepos, match }) => {
           </div>
           <div className='badge badge-dark'>Public Gists: {public_gists}</div>
         </div>
-        <Repos repos={repos} />
+        <Repos />
       </Fragment>
     );
   }
 
   return <Spinner />;
-};
-
-User.propTypes = {
-  getUser: PropTypes.func.isRequired,
-  getUserRepos: PropTypes.func.isRequired,
 };
 
 export default User;

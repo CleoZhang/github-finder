@@ -1,8 +1,10 @@
 import React, { useState, useContext } from 'react';
 import GithubContext from '../../context/github/githubContext';
+import AlertContext from '../../context/alert/alertContext';
 
-const Search = ({ showAlert }) => {
+const Search = () => {
   const githubContext = useContext(GithubContext);
+  const alertContext = useContext(AlertContext);
 
   // 1. useState(): refactor the state within the class-based component
   const [text, setText] = useState('');
@@ -14,7 +16,7 @@ const Search = ({ showAlert }) => {
   const onSubmit = e => {
     e.preventDefault();
     if (text === '') {
-      showAlert('Please enter something', 'light');
+      alertContext.setAlert('Please enter something', 'light');
     } else {
       githubContext.searchUsers(text);
       setText(text);

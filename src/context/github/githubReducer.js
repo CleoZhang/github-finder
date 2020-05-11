@@ -1,5 +1,4 @@
 import {
-  SERACH_USERS,
   SET_LOADING,
   CLEAR_USERS,
   GET_USER,

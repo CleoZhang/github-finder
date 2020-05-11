@@ -1,6 +1,6 @@
 import React, { Fragment, useState } from 'react';
-import axios from 'axios';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import axios from 'axios';
 
 import Navbar from './components/layout/Navbar';
 import Users from './components/users/Users';
@@ -8,6 +8,8 @@ import User from './components/users/User';
 import Search from './components/users/Search';
 import Alert from './components/layout/Alert';
 import About from './components/pages/About';
+
+import GithubState from './context/github/GithubState';
 
 import './App.css';
 
@@ -62,51 +64,53 @@ const App = () => {
   };
 
   return (
-    <Router>
-      <div className='App'>
-        <Navbar />
-        <div className='container'>
-          <Alert alert={this.state.alert} />
-          {/* call render when we do need to pass in any props */}
-          <Switch>
-            <Route
-              exact
-              path='/'
-              render={props => (
-                <Fragment>
-                  <Search
-                    searchUsers={searchUsers}
-                    clearUsers={clearUsers}
-                    showClear={users.length > 0 ? true : false}
-                    setAlert={showAlert}
-                  />
-                  <Users loading={loading} users={users} />
-                </Fragment>
-              )}
-            />
-
-            {/* User component prop to pass in the static page element */}
-            <Route exact path='/about' component={About} />
-
+    <GithubState>
+      <Router>
+        <div className='App'>
+          <Navbar />
+          <div className='container'>
+            <Alert alert={alert} />
             {/* call render when we do need to pass in any props */}
-            <Route
-              exact
-              path='/user/:login'
-              render={props => (
-                <User
-                  {...props}
-                  getUser={this.getUser}
-                  getUserRepos={this.getUserRepos}
-                  user={user}
-                  loading={loading}
-                  repos={repos}
-                />
-              )}
-            />
-          </Switch>
+            <Switch>
+              <Route
+                exact
+                path='/'
+                render={props => (
+                  <Fragment>
+                    <Search
+                      searchUsers={searchUsers}
+                      clearUsers={clearUsers}
+                      showClear={users.length > 0 ? true : false}
+                      setAlert={showAlert}
+                    />
+                    <Users loading={loading} users={users} />
+                  </Fragment>
+                )}
+              />
+
+              {/* User component prop to pass in the static page element */}
+              <Route exact path='/about' component={About} />
+
+              {/* call render when we do need to pass in any props */}
+              <Route
+                exact
+                path='/user/:login'
+                render={props => (
+                  <User
+                    {...props}
+                    getUser={this.getUser}
+                    getUserRepos={this.getUserRepos}
+                    user={user}
+                    loading={loading}
+                    repos={repos}
+                  />
+                )}
+              />
+            </Switch>
+          </div>
         </div>
-      </div>
-    </Router>
+      </Router>
+    </GithubState>
   );
 };
 

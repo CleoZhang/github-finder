@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
-const Search = ({ searchUsers, showClear, clearUsers, setAlert }) => {
+const Search = ({ searchUsers, showClear, clearUsers, showAlert }) => {
   // 1. useState(): refactor the state within the class-based component
   const [text, setText] = useState('');
 
@@ -12,7 +12,7 @@ const Search = ({ searchUsers, showClear, clearUsers, setAlert }) => {
   const onSubmit = e => {
     e.preventDefault();
     if (text === '') {
-      setAlert('Please enter something', 'light');
+      showAlert('Please enter something', 'light');
     } else {
       searchUsers(text);
       setText(text);
